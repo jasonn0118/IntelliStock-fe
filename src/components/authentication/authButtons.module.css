@@ -1,0 +1,25 @@
+.signInButton {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .signInButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .signUpButton {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .signUpButton:hover {
+    background-color: #1e7e34;
+  }
