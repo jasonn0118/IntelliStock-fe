@@ -1,6 +1,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --darkGray: #202020;
+  --gray: #f8f9fa;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,6 +16,8 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  min-height: 100vh;
+  overflow: auto;
 }
 
 body {
