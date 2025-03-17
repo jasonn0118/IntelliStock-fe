@@ -2,8 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Logo from "../../../public/logo/Logo.png";
-import SignInButton from "../authentication/SignInButton";
-import SignUpButton from "../authentication/SignUpButton";
+import AuthButtons from "../auth/AuthButtons";
 import Styles from "./header.module.css";
 
 export default function Header() {
@@ -17,10 +16,7 @@ export default function Header() {
         <Link href="/news">News</Link>
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
-        <div className={Styles.auth}>
-          <SignInButton />
-          <SignUpButton />
-        </div>
+        <AuthButtons />
       </nav>
     </header>
   );
