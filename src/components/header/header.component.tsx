@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import Logo from "../../../public/logo/Logo.png";
-import Styles from "./header.module.css";
 import SignInButton from "../authentication/SignInButton";
 import SignUpButton from "../authentication/SignUpButton";
+import Styles from "./header.module.css";
 
 export default function Header() {
   return (
