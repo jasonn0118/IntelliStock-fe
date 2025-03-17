@@ -1,6 +1,4 @@
 .hero {
-    background-color: #141414;
-    color: white;
     height: 50vh;
     display: flex;
     align-items: center;
@@ -23,7 +21,7 @@
   }
   
   .title span {
-    color: #4caf50; /* Highlighted AI keyword */
+    color: #2ed7b2;
   }
   
   .subtitle {

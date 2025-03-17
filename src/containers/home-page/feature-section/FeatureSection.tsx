@@ -1,4 +1,5 @@
 import FeatureCard from "@/app/_components/cards/FeatureCard";
+
 import Styles from "./FeatureSection.module.css";
 
 export default function FeatureSection() {
