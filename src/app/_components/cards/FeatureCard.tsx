@@ -5,28 +5,31 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 
-export default function FeatureCard() {
+interface FeatureCardProps {
+  title: string;
+  description: string;
+  link: string;
+}
+
+export default function FeatureCard({
+  title,
+  description,
+  link,
+}: FeatureCardProps) {
   return (
     <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
-          Word of the Day
+      <CardContent sx={{ height: 156 }}>
+        <Typography variant="h5" component="div" sx={{ mb: 1 }}>
+          {title}
         </Typography>
-        <Typography variant="h5" component="div">
-          benevolent
-        </Typography>
-        <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
-          adjective
-        </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
+        <Typography variant="body2">{description}</Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
+      <CardActions sx={{ mt: 1 }}>
+        <Button size="small" variant="outlined">
+          <Link href={`/${link}`}>Learn More</Link>
+        </Button>
       </CardActions>
     </Card>
   );
