@@ -1,0 +1,23 @@
+.modalBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #141414;
+    padding: 24px;
+    border-radius: 8px;
+    width: 400px;
+    color: white;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: white;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 16px;
+  }
