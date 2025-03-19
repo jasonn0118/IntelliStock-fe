@@ -1,3 +1,4 @@
+import { signUpUserWithEmailAndPassword } from "@/app/_lib/api/auth";
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import styles from "./AuthForm.module.css";
@@ -14,9 +15,14 @@ const SignUpForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signing up with:", formData);
+
+    try {
+      signUpUserWithEmailAndPassword(formData);
+    } catch (error) {
+      console.error("Failed to sign up", error);
+    }
   };
 
   return (

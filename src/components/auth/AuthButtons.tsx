@@ -22,10 +22,10 @@ const AuthButtons = observer(() => {
 
   return (
     <div className={styles.authButtonsWrapper}>
-      {authStore.email ? (
+      {authStore.hydrated ? (
         <div>
-          <p>Welcome back, {authStore.email}</p>
-          <button onClick={() => authStore.logOut()}>Sign Out</button>
+          <p>Welcome back, {authStore.firstName || authStore.email}</p>
+          <button onClick={() => authStore.signOut()}>Sign Out</button>
         </div>
       ) : (
         <>
