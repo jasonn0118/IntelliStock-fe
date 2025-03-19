@@ -1,4 +1,4 @@
-import FeatureCard from "@/app/_components/cards/FeatureCard";
+import FeatureCard from "@/containers/home-page/feature-section/FeatureCard";
 
 import Styles from "./FeatureSection.module.css";
 
