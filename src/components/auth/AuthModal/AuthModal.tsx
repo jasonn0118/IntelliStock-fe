@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, IconButton, Modal, Typography } from "@mui/material";
+import { Box, CircularProgress, IconButton, Modal, Typography } from "@mui/material";
 import React from "react";
 import styles from "./AuthModal.module.css";
 
@@ -8,6 +8,7 @@ interface AuthModalProps {
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  isOAuthLoading?: boolean;
 }
 
 const AuthModal: React.FC<AuthModalProps> = ({
@@ -15,6 +16,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
   onClose,
   title,
   children,
+  isOAuthLoading = false,
 }) => {
   return (
     <Modal open={open} onClose={onClose}>
@@ -28,7 +30,13 @@ const AuthModal: React.FC<AuthModalProps> = ({
         <Typography variant="h6" sx={{ mb: 2 }} className={styles.title}>
           {title}
         </Typography>
-        {children}
+        {isOAuthLoading ? (
+          <div style={{ display: "flex", justifyContent: "center", padding: "20px" }}>
+            <CircularProgress />
+          </div>
+        ) : (
+          children
+        )}
       </Box>
     </Modal>
   );
