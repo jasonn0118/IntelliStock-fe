@@ -20,6 +20,7 @@ export async function signUpUserWithEmailAndPassword({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password, firstName, lastName }),
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -101,3 +102,7 @@ export async function fetchCurrentUser() {
     return null;
   }
 }
+
+export const handleOAuthLogin = (provider: "google" | "github") => {
+  window.location.href = `http://localhost:3000/auth/${provider}`;
+};

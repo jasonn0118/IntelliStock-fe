@@ -20,33 +20,39 @@ const AuthButtons = observer(() => {
     authStore.hydrateUser();
   }, []);
 
+  const handleAuthClick = (type: AuthType) => {
+    setAuthType(type);
+    setModalOpen(true);
+  };
+
   return (
     <div className={styles.authButtonsWrapper}>
       {authStore.hydrated ? (
         <div>
           <p>Welcome back, {authStore.firstName || authStore.email}</p>
-          <button onClick={() => authStore.signOut()}>Sign Out</button>
+          <button
+            onClick={() => {
+              authStore.signOut();
+              setModalOpen(false);
+            }}
+          >
+            Sign Out
+          </button>
         </div>
       ) : (
         <>
-          <SignInButton
-            onClick={() => {
-              setAuthType("sign-in");
-              setModalOpen(true);
-            }}
-          />
-          <SignUpButton
-            onClick={() => {
-              setAuthType("sign-up");
-              setModalOpen(true);
-            }}
-          />
+          <SignInButton onClick={() => handleAuthClick("sign-in")} />
+          <SignUpButton onClick={() => handleAuthClick("sign-up")} />
           <AuthModal
             open={modalOpen}
             onClose={() => setModalOpen(false)}
             title={authType === "sign-in" ? "Sign In" : "Sign Up"}
           >
-            {authType === "sign-in" ? <SignInForm /> : <SignUpForm />}
+            {authType === "sign-in" ? (
+              <SignInForm onSuccess={() => setModalOpen(false)} />
+            ) : (
+              <SignUpForm onSuccess={() => setModalOpen(false)} />
+            )}
           </AuthModal>
         </>
       )}

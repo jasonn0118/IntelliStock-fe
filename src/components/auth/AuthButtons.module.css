@@ -9,7 +9,7 @@
   background-color: #007bff;
   border: none;
   color: white;
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
 }
@@ -22,7 +22,7 @@
   background-color: #28a745;
   border: none;
   color: white;
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
 }
