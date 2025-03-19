@@ -19,10 +19,13 @@ const AuthModal: React.FC<AuthModalProps> = ({
   return (
     <Modal open={open} onClose={onClose}>
       <Box className={styles.modalBox}>
-        <IconButton className={styles.closeButton} onClick={onClose}>
+        <IconButton
+          sx={{ position: "absolute", top: 8, right: 8 }}
+          onClick={onClose}
+        >
           <CloseIcon />
         </IconButton>
-        <Typography variant="h6" className={styles.title}>
+        <Typography variant="h6" sx={{ mb: 2 }} className={styles.title}>
           {title}
         </Typography>
         {children}
