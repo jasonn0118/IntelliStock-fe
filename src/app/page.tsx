@@ -7,8 +7,8 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <div className={styles.page}>
+      <HeroSection />
       <main className={styles.main}>
-        <HeroSection />
         <SloganSection />
         <FeatureSection />
       </main>

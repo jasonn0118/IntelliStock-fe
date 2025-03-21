@@ -1,3 +1,4 @@
+import StockListSection from "@/containers/analysis-page/stock-list-section/StockListSection";
 import Styles from "./page.module.css";
 
 export default function Analysis() {
@@ -5,7 +6,7 @@ export default function Analysis() {
     <div>
       <main>
         <div className={Styles.page}>
-          <div>Card list section</div>
+          <StockListSection />
           <div>Search section</div>
           <div>AI generated analysis section</div>
         </div>
