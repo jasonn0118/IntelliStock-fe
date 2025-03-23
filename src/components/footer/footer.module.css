@@ -3,6 +3,8 @@
     color: #fff;
     padding: 40px 20px;
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .container {
@@ -10,7 +12,7 @@
     justify-content: space-between;
     gap: 40px;
     flex-wrap: wrap;
-    max-width: 80%;
+    max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 20px;
   }
@@ -18,6 +20,7 @@
   .section {
     min-width: 200px;
     text-align: center;
+    flex: 1;
   }
   
   .section h3 {
@@ -51,4 +54,54 @@
     padding-top: 15px;
     font-size: 0.9rem;
     color: #bdbdbd;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 1024px) {
+    .container {
+      max-width: 90%;
+      gap: 30px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      max-width: 100%;
+      gap: 20px;
+      justify-content: center;
+    }
+    
+    .section {
+      min-width: 160px;
+      flex-basis: calc(50% - 20px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer {
+      padding: 30px 15px;
+    }
+    
+    .container {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .section {
+      min-width: 100%;
+      width: 100%;
+    }
+    
+    .section h3 {
+      font-size: 1.1rem;
+    }
+    
+    .section ul li {
+      margin-bottom: 6px;
+    }
+    
+    .copyright {
+      font-size: 0.8rem;
+    }
   }
