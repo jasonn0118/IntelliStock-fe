@@ -1,3 +1,5 @@
+@import url("/src/styles/breakpoints.css");
+
 .stockListSection {
   width: 100%;
   padding: 0 2rem;
@@ -22,7 +24,7 @@
   max-width: calc(50% - 1rem);
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-sm)) {
   .stockListSection {
     padding: 0 1rem;
   }
@@ -37,7 +39,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: var(--breakpoint-xs)) {
   .stockListSection {
     padding: 0 0.5rem;
   }
