@@ -39,8 +39,12 @@ export default function StockListSection() {
   return (
     <section className={Styles.stockListSection}>
       <div className={Styles.stockListsContainer}>
-        <StockList type="marketCap" stocks={marketCapStocks}/>
-        <StockList type="gainer" stocks={gainerStocks}/>
+        <div>
+          <StockList type="marketCap" stocks={marketCapStocks}/>
+        </div>
+        <div>
+          <StockList type="gainer" stocks={gainerStocks}/>
+        </div>
       </div>
     </section>
   );

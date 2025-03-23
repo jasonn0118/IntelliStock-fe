@@ -1,0 +1,17 @@
+:root {
+  /* Mobile breakpoints */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 768px;
+  
+  /* Medium screen breakpoints */
+  --breakpoint-ipad-air-min: 769px;
+  --breakpoint-ipad-air-max: 859px;
+  --breakpoint-small-medium-min: 860px;
+  --breakpoint-small-medium-max: 959px;
+  --breakpoint-medium-min: 960px;
+  --breakpoint-medium-max: 1043px;
+  
+  /* Large screen breakpoints */
+  --breakpoint-lg: 1044px;
+  --breakpoint-xl: 1280px;
+}
