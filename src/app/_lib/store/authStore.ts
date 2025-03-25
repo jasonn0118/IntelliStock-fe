@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
+
 import { fetchCurrentUser, signOutUser } from "../api/auth";
 
 class AuthStore {
@@ -53,4 +54,7 @@ class AuthStore {
   }
 }
 
-export default new AuthStore();
+// Create a singleton instance
+const authStore = new AuthStore();
+
+export default authStore;

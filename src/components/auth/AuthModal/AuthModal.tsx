@@ -1,6 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, CircularProgress, IconButton, Modal, Typography } from "@mui/material";
 import React from "react";
+
 import styles from "./AuthModal.module.css";
 
 interface AuthModalProps {

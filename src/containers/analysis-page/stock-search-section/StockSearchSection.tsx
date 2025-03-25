@@ -1,6 +1,5 @@
 "use client";
 
-import { mediaQueries } from "@/styles/breakpoints";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import {
@@ -11,6 +10,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+
+import { mediaQueries } from "@/styles/breakpoints";
+
 import styles from "./StockSearchSection.module.css";
 
 interface Stock {
@@ -25,6 +27,7 @@ const StockSearchSection = () => {
   const [options, setOptions] = useState<Stock[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const isMobile = useMediaQuery(mediaQueries.sm);
@@ -133,16 +136,19 @@ const StockSearchSection = () => {
             />
           )}
           renderOption={(props, option) => (
-            <li {...props} style={{ backgroundColor: '#121212', color: '#f5f5f5' }}>
+            <li
+              {...props}
+              style={{ backgroundColor: "#121212", color: "#f5f5f5" }}
+            >
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
                   padding: "10px 16px",
-                  width: '100%',
-                  borderBottom: '1px solid #222',
-                  '&:hover': {
+                  width: "100%",
+                  borderBottom: "1px solid #222",
+                  "&:hover": {
                     backgroundColor: "#1a1a1a",
                   },
                 }}
@@ -152,7 +158,9 @@ const StockSearchSection = () => {
                     <div className={styles.optionSymbol}>{option.symbol}</div>
                     <div className={styles.optionRight}>
                       {option.price && (
-                        <div className={styles.optionPrice}>${option.price}</div>
+                        <div className={styles.optionPrice}>
+                          ${option.price}
+                        </div>
                       )}
                       {option.changesPercentage && (
                         <div
@@ -180,7 +188,9 @@ const StockSearchSection = () => {
                     </div>
                     <div className={styles.optionRight}>
                       {option.price && (
-                        <div className={styles.optionPrice}>${option.price}</div>
+                        <div className={styles.optionPrice}>
+                          ${option.price}
+                        </div>
                       )}
                       {option.changesPercentage && (
                         <div

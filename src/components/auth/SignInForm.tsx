@@ -1,12 +1,14 @@
-import {
-  handleOAuthLogin,
-  signInUserWithEmailAndPassword,
-} from "@/app/_lib/api/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GitHub, Google } from "@mui/icons-material";
 import { Button, Divider, IconButton, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+
+import {
+  handleOAuthLogin,
+  signInUserWithEmailAndPassword,
+} from "@/app/_lib/api/auth";
+
 import styles from "./AuthForm.module.css";
 
 const schema = yup.object().shape({
