@@ -1,8 +1,10 @@
 "use client";
 
-import authStore from "@/app/_lib/store/authStore";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
+
+import authStore from "@/app/_lib/store/authStore";
+
 import styles from "./AuthButtons.module.css";
 import AuthModal from "./AuthModal/AuthModal";
 import SignInButton from "./SignInButton";

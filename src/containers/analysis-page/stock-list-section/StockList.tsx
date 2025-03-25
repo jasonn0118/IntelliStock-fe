@@ -1,7 +1,5 @@
 "use client";
 
-import { breakpoints, mediaQueries } from "@/styles/breakpoints";
-import { formatLargeNumber } from "@/utils/formatNumber";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -18,6 +16,10 @@ import {
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
+
+import { breakpoints, mediaQueries } from "@/styles/breakpoints";
+import { formatLargeNumber } from "@/utils/formatNumber";
+
 import Styles from "./StockList.module.css";
 
 export type StockListType = "marketCap" | "gainer";

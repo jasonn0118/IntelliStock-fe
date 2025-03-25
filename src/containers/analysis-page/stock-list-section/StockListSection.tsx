@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import StockList from "./StockList";
 import Styles from "./StockListSection.module.css";
 
