@@ -1,0 +1,73 @@
+// Breakpoint variables
+$mobile-xs: 480px !default;
+$mobile-sm: 768px !default;
+$ipad-air-min: 769px !default;
+$ipad-air-max: 859px !default;
+$small-medium-min: 860px !default;
+$small-medium-max: 959px !default;
+$medium-min: 960px !default;
+$medium-max: 1043px !default;
+$large: 1044px !default;
+$x-large: 1280px !default;
+
+// Breakpoint mixins
+@mixin mobile-xs {
+  @media (max-width: $mobile-xs) {
+    @content;
+  }
+}
+
+@mixin mobile-sm {
+  @media (max-width: $mobile-sm) {
+    @content;
+  }
+}
+
+@mixin ipad-air {
+  @media (min-width: $ipad-air-min) and (max-width: $ipad-air-max) {
+    @content;
+  }
+}
+
+@mixin small-medium {
+  @media (min-width: $small-medium-min) and (max-width: $small-medium-max) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: $medium-min) and (max-width: $medium-max) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $large) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: $x-large) {
+    @content;
+  }
+}
+
+// Custom breakpoint mixin for more flexibility
+@mixin breakpoint($min: 0, $max: 0) {
+  @if $min != 0 and $max != 0 {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $min != 0 and $max == 0 {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else if $min == 0 and $max != 0 {
+    @media (max-width: $max) {
+      @content;
+    }
+  }
+}
+
+

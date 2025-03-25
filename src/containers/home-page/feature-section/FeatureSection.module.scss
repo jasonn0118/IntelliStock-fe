@@ -3,16 +3,16 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-}
 
-.featureSection h3 {
-    text-align: center;
-    font-size: 1.5rem;
-    color: #bdbdbd;
+    h3 {
+        text-align: center;
+        font-size: 1.5rem;
+        color: #bdbdbd;
+    }
 }
 
 .cardWrapper {
-   display: grid;
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
     gap: 1rem;
     justify-content: center;

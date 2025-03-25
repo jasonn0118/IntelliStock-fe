@@ -1,4 +1,4 @@
-@import url("/src/styles/breakpoints.css");
+@import '../../../styles/breakpoints.scss';
 
 .container {
   width: 100%;
@@ -8,10 +8,41 @@
   background-color: #020202;
   border-radius: 8px;
   border: 1px solid #020202;
+  
+  @include mobile-sm {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
 }
 
 .searchContainer {
   width: 100%;
+  
+  :global(.MuiOutlinedInput-root) {
+    background-color: #121212;
+    border-radius: 8px;
+  }
+  
+  :global(.MuiOutlinedInput-notchedOutline) {
+    border-color: #333;
+  }
+  
+  :global(.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline) {
+    border-color: #444;
+  }
+  
+  :global(.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline) {
+    border-color: #666;
+  }
+  
+  :global(.MuiInputBase-input) {
+    color: #f5f5f5;
+    padding-left: 0.5rem;
+  }
+  
+  :global(.MuiAutocomplete-endAdornment) {
+    right: 14px;
+  }
 }
 
 .searchInputWrapper {
@@ -31,34 +62,6 @@
   align-items: center;
 }
 
-.searchContainer :global(.MuiOutlinedInput-root) {
-  background-color: #121212;
-  border-radius: 8px;
-}
-
-.searchContainer :global(.MuiOutlinedInput-notchedOutline) {
-  border-color: #333;
-}
-
-.searchContainer
-  :global(.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline) {
-  border-color: #444;
-}
-
-.searchContainer
-  :global(.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline) {
-  border-color: #666;
-}
-
-.searchContainer :global(.MuiInputBase-input) {
-  color: #f5f5f5;
-  padding-left: 0.5rem;
-}
-
-.searchContainer :global(.MuiAutocomplete-endAdornment) {
-  right: 14px;
-}
-
 .optionLeft {
   display: flex;
   align-items: center;
@@ -75,6 +78,11 @@
   margin-right: 8px;
   min-width: 60px;
   color: #f5f5f5;
+  
+  @include mobile-sm {
+    min-width: 50px;
+    font-size: 0.9rem;
+  }
 }
 
 .optionName {
@@ -83,11 +91,20 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  
+  @include mobile-sm {
+    font-size: 0.85rem;
+    max-width: 120px;
+  }
 }
 
 .optionPrice {
   font-weight: 500;
   color: #f5f5f5;
+  
+  @include mobile-sm {
+    font-size: 0.9rem;
+  }
 }
 
 .optionChange {
@@ -98,6 +115,12 @@
   border-radius: 4px;
   min-width: 70px;
   justify-content: center;
+  
+  @include mobile-sm {
+    font-size: 0.85rem;
+    min-width: 60px;
+    padding: 1px 4px;
+  }
 }
 
 .positive {
@@ -115,46 +138,14 @@
   margin-right: -4px;
 }
 
-/* Responsive styles */
-@media (max-width: var(--breakpoint-sm)) {
-  .container {
-    padding: 1rem;
-    margin: 1rem auto;
-  }
-
-  .title {
+.title {
+  @include mobile-sm {
     font-size: 1.1rem !important;
   }
+}
 
-  .optionItem {
+.optionItem {
+  @include mobile-sm {
     padding: 8px 12px !important;
-  }
-
-  .optionSymbol {
-    min-width: 50px;
-    font-size: 0.9rem;
-  }
-
-  .optionName {
-    font-size: 0.85rem;
-    max-width: 120px;
-  }
-
-  .optionPrice {
-    font-size: 0.9rem;
-  }
-
-  .optionChange {
-    font-size: 0.85rem;
-    min-width: 60px;
-    padding: 1px 4px;
-  }
-
-  .changeIcon {
-    font-size: 16px !important;
-  }
-
-  .optionRight {
-    gap: 8px;
   }
 }
