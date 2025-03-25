@@ -1,6 +1,6 @@
 import FeatureCard from "@/containers/home-page/feature-section/FeatureCard";
 
-import Styles from "./FeatureSection.module.css";
+import Styles from "./FeatureSection.module.scss";
 
 export default function FeatureSection() {
   return (

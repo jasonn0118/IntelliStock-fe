@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import StockList from "./StockList";
-import Styles from "./StockListSection.module.css";
+import Styles from "./StockListSection.module.scss";
 
 interface StockItem {
   symbol: string;
@@ -40,10 +40,10 @@ export default function StockListSection() {
   return (
     <section className={Styles.stockListSection}>
       <div className={Styles.stockListsContainer}>
-        <div>
+        <div className={Styles.stockListCard}>
           <StockList type="marketCap" stocks={marketCapStocks}/>
         </div>
-        <div>
+        <div className={Styles.stockListCard}>
           <StockList type="gainer" stocks={gainerStocks}/>
         </div>
       </div>

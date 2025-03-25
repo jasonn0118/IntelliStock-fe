@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 import { mediaQueries } from "@/styles/breakpoints";
 
-import styles from "./StockSearchSection.module.css";
+import styles from "./StockSearchSection.module.scss";
 
 interface Stock {
   symbol: string;

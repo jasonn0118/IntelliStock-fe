@@ -1,4 +1,4 @@
-import styles from "./SloganSection.module.css";
+import styles from "./SloganSection.module.scss";
 
 export default function SloganSection() {
   return (

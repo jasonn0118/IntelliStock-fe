@@ -1,0 +1,68 @@
+// Breakpoint variables
+$mobile-xs: 480px !default;
+$mobile-sm: 768px !default;
+$tablet: 768px !default;
+$small-medium: 860px !default;
+$medium: 960px !default;
+$large: 1044px !default;
+$x-large: 1280px !default;
+
+// Breakpoint mixins
+@mixin mobile-xs {
+  @media (max-width: $mobile-xs) {
+    @content;
+  }
+}
+
+@mixin mobile-sm {
+  @media (max-width: $mobile-sm) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $tablet) and (max-width: $small-medium) {
+    @content;
+  }
+}
+
+@mixin small-medium {
+  @media (min-width: $small-medium) and (max-width: $medium) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: $medium) and (max-width: $large) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $large) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: $x-large) {
+    @content;
+  }
+}
+
+// Custom breakpoint mixin for more flexibility
+@mixin breakpoint($min: 0, $max: 0) {
+  @if $min != 0 and $max != 0 {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $min != 0 and $max == 0 {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else if $min == 0 and $max != 0 {
+    @media (max-width: $max) {
+      @content;
+    }
+  }
+}

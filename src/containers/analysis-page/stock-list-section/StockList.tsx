@@ -20,7 +20,7 @@ import { useState } from "react";
 import { breakpoints, mediaQueries } from "@/styles/breakpoints";
 import { formatLargeNumber } from "@/utils/formatNumber";
 
-import Styles from "./StockList.module.css";
+import Styles from "./StockList.module.scss";
 
 export type StockListType = "marketCap" | "gainer";
 
@@ -57,12 +57,23 @@ const StockItemComponent = ({
         gap: "0.15rem",
         flexWrap: "nowrap" as const,
       }
+    : isMobile
+    ? {
+        gap: "0.25rem",
+        flexWrap: "nowrap" as const,
+        justifyContent: "space-between",
+      }
     : {};
 
   const textContainerStyle = isIPadAirSize
     ? {
         minWidth: "50px",
         maxWidth: "80px",
+      }
+    : isMobile
+    ? {
+        minWidth: "auto",
+        maxWidth: "auto",
       }
     : {};
 
@@ -74,6 +85,13 @@ const StockItemComponent = ({
         justifyContent: "center" as const,
         marginLeft: 0,
       }
+    : isMobile
+    ? {
+        minWidth: "40px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end",
+      }
     : {};
 
   return (
@@ -82,14 +100,15 @@ const StockItemComponent = ({
       divider
       sx={{
         height: isMobile
-          ? "48px"
+          ? "auto"
           : isIPadAirSize
           ? "70px"
           : isSmallMediumScreen
           ? "65px"
           : "56px",
+        minHeight: isMobile ? "48px" : "auto",
         padding: isMobile
-          ? "8px 16px"
+          ? "8px 12px"
           : isIPadAirSize
           ? "8px 12px"
           : "8px 16px",
@@ -335,6 +354,7 @@ export default function StockList({ type, stocks }: StockListProps) {
         borderRadius: "8px",
         bgcolor: "#020202",
         marginBottom: isMobile ? "1rem" : 0,
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       }}
       subheader={
         <ListSubheader
@@ -343,6 +363,7 @@ export default function StockList({ type, stocks }: StockListProps) {
             borderBottom: "1px solid",
             padding: isMobile ? "8px 16px" : "8px 16px",
             fontSize: isMobile ? "0.95rem" : "inherit",
+            color: "#f5f5f5",
           }}
         >
           {type === "marketCap" ? "Top 10 Market Cap" : "Top 10 Gainers"}
@@ -372,9 +393,12 @@ export default function StockList({ type, stocks }: StockListProps) {
           <Button
             size="small"
             onClick={() => setShowAll(!showAll)}
+            variant="outlined"
             sx={{
               fontSize: "0.8rem",
               textTransform: "none",
+              width: "100%",
+              maxWidth: "200px",
             }}
           >
             {showAll ? "View Less" : "View More"}
