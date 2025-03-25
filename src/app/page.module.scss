@@ -17,11 +17,11 @@
   width: 100%;
   overflow-x: hidden;
   
-  @media (max-width: 576px) {
+  @include mobile-sm {
     padding: var(--spacing-md) 0;
   }
   
-  @media (max-width: 480px) {
+  @include mobile-xs {
     padding: var(--spacing-sm) 0;
   }
 }

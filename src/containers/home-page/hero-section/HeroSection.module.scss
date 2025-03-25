@@ -26,11 +26,11 @@
     color: var(--color-primary);
   }
   
-  @media (max-width: 576px) {
+  @include mobile-sm {
     font-size: var(--font-size-lg);
   }
   
-  @media (max-width: 480px) {
+  @include mobile-xs {
     font-size: var(--font-size-md);
   }
 }
@@ -40,11 +40,11 @@
   color: var(--color-secondary);
   margin-bottom: var(--margin-lg);
   
-  @media (max-width: 576px) {
+  @include mobile-sm {
     font-size: var(--font-size-md);
   }
   
-  @media (max-width: 480px) {
+  @include mobile-xs {
     font-size: var(--font-size-sm);
   }
 }
@@ -63,12 +63,12 @@
     background-color: var(--color-primary-dark);
   }
   
-  @media (max-width: 576px) {
+  @include mobile-sm {
     padding: var(--spacing-md) var(--spacing-md);
     font-size: var(--font-size-md);
   }
   
-  @media (max-width: 480px) {
+  @include mobile-xs {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-size-sm);
   }

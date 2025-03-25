@@ -1,12 +1,9 @@
 // Breakpoint variables
 $mobile-xs: 480px !default;
 $mobile-sm: 768px !default;
-$ipad-air-min: 769px !default;
-$ipad-air-max: 859px !default;
-$small-medium-min: 860px !default;
-$small-medium-max: 959px !default;
-$medium-min: 960px !default;
-$medium-max: 1043px !default;
+$tablet: 768px !default;
+$small-medium: 860px !default;
+$medium: 960px !default;
 $large: 1044px !default;
 $x-large: 1280px !default;
 
@@ -23,20 +20,20 @@ $x-large: 1280px !default;
   }
 }
 
-@mixin ipad-air {
-  @media (min-width: $ipad-air-min) and (max-width: $ipad-air-max) {
+@mixin tablet {
+  @media (min-width: $tablet) and (max-width: $small-medium) {
     @content;
   }
 }
 
 @mixin small-medium {
-  @media (min-width: $small-medium-min) and (max-width: $small-medium-max) {
+  @media (min-width: $small-medium) and (max-width: $medium) {
     @content;
   }
 }
 
 @mixin medium {
-  @media (min-width: $medium-min) and (max-width: $medium-max) {
+  @media (min-width: $medium) and (max-width: $large) {
     @content;
   }
 }
@@ -69,5 +66,3 @@ $x-large: 1280px !default;
     }
   }
 }
-
-
