@@ -1,11 +1,7 @@
 "use client";
 
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import {
   Box,
-  Card,
-  CardContent,
   CircularProgress,
   Paper,
   Typography,
@@ -17,6 +13,8 @@ import { useEffect, useState } from "react";
 
 import { breakpoints } from "@/styles/breakpoints";
 import { formatLargeNumber } from "@/utils/formatNumber";
+import { SentimentBar } from "./SentimentBar";
+import { StatCard } from "./StatCard";
 
 import Styles from "./ExchangeAIAnalysis.module.scss";
 
@@ -57,187 +55,19 @@ interface MarketSummary {
   };
 }
 
-const StatCard = ({
-  title,
-  value,
-  change,
-  isPositive,
-  subtitle,
-}: {
-  title: string;
-  value: string | number;
-  change?: number;
-  isPositive?: boolean;
-  subtitle?: string | React.ReactNode;
-}) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down(breakpoints.sm));
-
-  return (
-    <Card className={Styles.statCard}>
-      <CardContent>
-        <Typography
-          variant="subtitle2"
-          color="text.secondary"
-          sx={{ fontSize: isMobile ? "0.75rem" : "0.875rem" }}
-        >
-          {title}
-        </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ fontSize: isMobile ? "1rem" : "1.25rem" }}
-          >
-            {value}
-          </Typography>
-          {change !== undefined && (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                color: isPositive ? "success.main" : "error.main",
-                fontSize: isMobile ? "0.75rem" : "0.875rem",
-              }}
-            >
-              {isPositive ? (
-                <ArrowDropUpIcon
-                  sx={{ fontSize: isMobile ? "1rem" : "1.25rem" }}
-                />
-              ) : (
-                <ArrowDropDownIcon
-                  sx={{ fontSize: isMobile ? "1rem" : "1.25rem" }}
-                />
-              )}
-              {Math.abs(change).toFixed(2)}%
-            </Box>
-          )}
-        </Box>
-        {subtitle && (
-          <Box sx={{ mt: 1 }}>
-            {typeof subtitle === "string" ? (
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{ fontSize: isMobile ? "0.7rem" : "0.75rem" }}
-              >
-                {subtitle}
-              </Typography>
-            ) : (
-              subtitle
-            )}
-          </Box>
-        )}
-      </CardContent>
-    </Card>
-  );
-};
-
-const SentimentBar = ({ sentiment }: { sentiment: string }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down(breakpoints.sm));
-
-  const getSentimentColor = (sentiment: string) => {
-    switch (sentiment.toLowerCase()) {
-      case "very negative":
-        return "#ff0000";
-      case "negative":
-        return "#ff6b6b";
-      case "neutral":
-        return "#ffd700";
-      case "positive":
-        return "#90ee90";
-      case "very positive":
-        return "#00ff00";
-      default:
-        return "#ffd700";
-    }
-  };
-
-  const getSentimentPosition = (sentiment: string) => {
-    switch (sentiment.toLowerCase()) {
-      case "very negative":
-        return "0%";
-      case "negative":
-        return "25%";
-      case "neutral":
-        return "50%";
-      case "positive":
-        return "75%";
-      case "very positive":
-        return "100%";
-      default:
-        return "50%";
-    }
-  };
-
-  return (
-    <Box sx={{ mt: 1 }}>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 1,
-          mb: 0.5,
-        }}
-      >
-        <Typography
-          variant="caption"
-          sx={{
-            color: "#aaa",
-            fontSize: isMobile ? "0.7rem" : "0.75rem",
-          }}
-        >
-          Very Negative
-        </Typography>
-        <Box sx={{ flex: 1 }} />
-        <Typography
-          variant="caption"
-          sx={{
-            color: "#aaa",
-            fontSize: isMobile ? "0.7rem" : "0.75rem",
-          }}
-        >
-          Very Positive
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          height: "8px",
-          borderRadius: "4px",
-          backgroundColor: "#333",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            height: "100%",
-            width: getSentimentPosition(sentiment),
-            backgroundColor: getSentimentColor(sentiment),
-            transition: "all 0.3s ease",
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            left: getSentimentPosition(sentiment),
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "0",
-            height: "0",
-            borderLeft: "6px solid transparent",
-            borderRight: "6px solid transparent",
-            borderTop: "8px solid #fff",
-            filter: "drop-shadow(0px 1px 1px rgba(0,0,0,0.3))",
-          }}
-        />
-      </Box>
-    </Box>
-  );
+const mockAIInsight = {
+  overallMarketSentiment:
+    "The overall market sentiment on March 25, 2025, is notably mixed, as reflected by the NASDAQ Composite Index's modest gain of 0.46%. Despite this positive movement, the broader market indicators suggest a lack of strong upward momentum. The advance/decline ratio of 0.49 indicates more stocks are declining than advancing, suggesting underlying bearish sentiment. The neutral market sentiment reflects a state of caution, with investors possibly awaiting clearer economic signals or earnings results to drive decisive action.",
+  keyTechnicalIndicatorsAndMarketBreadth:
+    "The technical indicators suggest a lack of strong bullish momentum despite the index's gain. With 853 declining stocks overshadowing the 415 advancing ones, the market breadth highlights a predominantly bearish undertone. The advance/decline ratio of 0.49 further underscores this imbalance, suggesting that the gains in the Composite Index are driven by a concentrated few rather than a broad-based rally. This divergence between index performance and market breadth could indicate potential volatility or impending consolidation.",
+  volumeAnalysisAndTradingActivity:
+    "The trading volume of 5,855,819,000 shares indicates healthy market participation; however, it does not necessarily reflect bullish enthusiasm. The substantial volume, combined with the prevailing number of declining stocks, suggests that there may be significant selling pressure or profit-taking occurring. This level of activity might also imply that institutional investors are adjusting their positions in response to broader economic indicators or sector-specific news. Traders should watch for volume spikes in individual stocks, as these could signal shifts in market sentiment.",
+  peRatioEvaluation:
+    "The average P/E ratio stands at an unusually low 0.57, which may indicate that the market is undervaluing earnings relative to historical norms. Such a low P/E could be a sign of investor skepticism about future earnings growth or broader economic concerns. This atypical valuation metric suggests that investors might be pricing in potential risks or downturns, and it warrants close attention to upcoming earnings reports and economic forecasts to gauge whether this sentiment is justified.",
+  keyPointsToWatch:
+    "In the next trading session, investors should monitor the performance of key technological and growth sectors, as these have historically driven NASDAQ's gains. Additionally, any changes in the advance/decline ratio could signal shifts in market sentiment or momentum. Keeping an eye on economic data releases and corporate earnings announcements will be crucial, as these could provide the catalysts needed to confirm or negate current market trends. The movement in market leaders and heavily weighted stocks in the index should also be observed closely.",
+  recommendations:
+    "Given the current market conditions, it would be prudent for investors to adopt a cautious approach. Diversification remains key, as the mixed sentiment suggests potential volatility. Investors should consider maintaining positions in defensive sectors while selectively adding exposure to technology and growth stocks that have strong fundamentals. It is also advisable to keep an eye on macroeconomic indicators and fiscal policy developments, as these could heavily influence market dynamics. For traders, employing strategies that capitalize on short-term volatility might be beneficial while maintaining a focus on risk management.",
 };
 
 export default function ExchangeAIAnalysis() {
@@ -245,11 +75,13 @@ export default function ExchangeAIAnalysis() {
     null
   );
   const [loading, setLoading] = useState(true);
+  const [aiLoading, setAiLoading] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down(breakpoints.sm));
 
   useEffect(() => {
     const fetchMarketSummary = async () => {
+      setAiLoading(true);
       try {
         const response = await fetch(
           "http://localhost:3000/stocks/market-summary?date=2024-03-25"
@@ -257,15 +89,33 @@ export default function ExchangeAIAnalysis() {
         const data = await response.json();
         setMarketSummary(data);
         setLoading(false);
+        setAiLoading(false);
       } catch (error) {
         console.error("Error fetching market summary:", error);
       } finally {
         setLoading(false);
+        setAiLoading(false);
       }
     };
 
     fetchMarketSummary();
   }, []);
+
+  useEffect(() => {
+    const simulateAIInsight = async () => {
+      if (!marketSummary) return;
+
+      setAiLoading(true);
+      // Simulate API delay
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      setMarketSummary((prev) =>
+        prev ? { ...prev, aiAnalysis: mockAIInsight } : null
+      );
+    };
+
+    simulateAIInsight();
+  }, [marketSummary]);
 
   if (loading) {
     return <Typography>Loading market summary...</Typography>;
