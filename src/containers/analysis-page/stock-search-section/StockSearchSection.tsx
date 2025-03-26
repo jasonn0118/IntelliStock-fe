@@ -1,6 +1,5 @@
 "use client";
 
-import { mediaQueries } from "@/styles/breakpoints";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import {
@@ -11,6 +10,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+
+import { mediaQueries } from "@/styles/breakpoints";
+
 import styles from "./StockSearchSection.module.scss";
 
 interface Stock {
