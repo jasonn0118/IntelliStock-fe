@@ -70,7 +70,9 @@ export default function ExchangeAIAnalysis() {
       setAiLoading(true);
       try {
         const response = await fetch(
-          "http://localhost:3000/stocks/market-summary?date=2024-03-25"
+          `http://localhost:3000/stocks/market-summary?date=${
+            new Date().toISOString().split("T")[0]
+          }`
         );
         const data = await response.json();
         setMarketSummary(data);
