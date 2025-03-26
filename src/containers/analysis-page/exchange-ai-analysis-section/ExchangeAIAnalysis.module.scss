@@ -1,0 +1,45 @@
+.container {
+  width: 100%;
+  padding: 1.5rem;
+  background-color: #020202;
+  border-radius: 8px;
+  border: 1px solid #020202;
+  margin-bottom: 2rem;
+  
+  @include mobile-sm {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.statCard {
+  background-color: #121212 !important;
+  border: 1px solid #333;
+  height: 100%;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    border-color: #444;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(.MuiCardContent-root) {
+    padding: 1rem;
+    
+    @include mobile-sm {
+      padding: 0.75rem;
+    }
+  }
+  
+  :global(.MuiTypography-root) {
+    color: #f5f5f5;
+  }
+  
+  :global(.MuiTypography-subtitle2) {
+    color: #aaa;
+  }
+  
+  :global(.MuiTypography-caption) {
+    color: #888;
+  }
+}
