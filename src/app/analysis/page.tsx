@@ -1,6 +1,7 @@
 import StockListSection from "@/containers/analysis-page/stock-list-section/StockListSection";
 import StockSearchSection from "@/containers/analysis-page/stock-search-section/StockSearchSection";
 
+import ExchangeAIAnalysis from "@/containers/analysis-page/exchange-ai-analysis-section/ExchangeAIAnalysis";
 import Styles from "./page.module.css";
 
 export default function Analysis() {
@@ -10,7 +11,7 @@ export default function Analysis() {
         <div className={Styles.page}>
           <StockListSection />
           <StockSearchSection />
-          <div>AI generated analysis section</div>
+          <ExchangeAIAnalysis />
         </div>
       </main>
     </div>
