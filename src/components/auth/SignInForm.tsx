@@ -7,7 +7,7 @@ import * as yup from "yup";
 import {
   handleOAuthLogin,
   signInUserWithEmailAndPassword,
-} from "@/app/_lib/api/auth";
+} from "@/lib/api/auth";
 
 import styles from "./AuthForm.module.css";
 
