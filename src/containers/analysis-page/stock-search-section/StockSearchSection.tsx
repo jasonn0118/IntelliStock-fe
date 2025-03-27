@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 
 import { mediaQueries } from "@/styles/breakpoints";
+import { useRouter } from "next/navigation";
 
 import styles from "./StockSearchSection.module.scss";
 
@@ -27,31 +28,9 @@ const StockSearchSection = () => {
   const [options, setOptions] = useState<Stock[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line
-  const [stocks, setStocks] = useState<Stock[]>([]);
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const isMobile = useMediaQuery(mediaQueries.sm);
-
-  useEffect(() => {
-    const fetchStocks = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/stocks");
-        const data = await response.json();
-        setStocks(data);
-      } catch (error) {
-        console.error("Error fetching stocks:", error);
-        setLoading(false);
-        setOptions([
-          {
-            symbol: "",
-            name: "Error fetching stocks. Please try again later.",
-          },
-        ]);
-      }
-    };
-
-    fetchStocks();
-  }, []);
+  const router = useRouter();
 
   useEffect(() => {
     if (inputValue === "") {
@@ -115,9 +94,8 @@ const StockSearchSection = () => {
           onChange={(event, newValue) => {
             // TODO: Redirect to stock detail page
             if (newValue) {
-              console.log("Selected stock:", newValue);
-              setSelectedStock(newValue);
-              setInputValue(`${newValue.symbol} - ${newValue.name}`);
+              // Redirect to stock detail page
+              router.push(`/stock/${newValue.symbol}`);
             } else {
               setSelectedStock(null);
             }
