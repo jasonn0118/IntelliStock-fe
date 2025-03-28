@@ -3,7 +3,7 @@
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
 
-import { Sidebar } from "../components/sidebar/sidebar";
+import { Sidebar } from "./components/sidebar/sidebar";
 
 import Styles from "./layout.module.scss";
 

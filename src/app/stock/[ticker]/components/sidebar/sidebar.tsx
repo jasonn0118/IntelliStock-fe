@@ -37,7 +37,7 @@ export const Sidebar = () => {
   const ticker = params.ticker as string;
 
   if (isMobile) {
-    return null; // Hide sidebar on mobile
+    return null;
   }
 
   return (
