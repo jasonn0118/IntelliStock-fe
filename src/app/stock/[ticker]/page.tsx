@@ -1,48 +1,92 @@
-import { Box, Typography } from "@mui/material";
+"use client";
+
+import { Box, CircularProgress, Typography } from "@mui/material";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { CompanyOverview } from "./components/CompanyOverview";
 import Styles from "./page.module.scss";
 
-interface StockPageProps {
-  params: {
-    ticker: string;
-  };
-}
+export default function StockPage() {
+  const params = useParams();
+  const ticker = params.ticker as string;
+  const [stockData, setStockData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-async function getStockData(ticker: string) {
-  try {
-    console.log(`Fetching data for ticker: ${ticker}`);
-    const response = await fetch(`http://localhost:3000/stocks/${ticker}`, {
-      next: { revalidate: 300 },
-      cache: "no-store",
-    });
+  useEffect(() => {
+    async function fetchStockData() {
+      if (!ticker) return;
 
-    if (!response.ok) {
-      console.error(
-        `Failed to fetch data: ${response.status} ${response.statusText}`
-      );
-      throw new Error(`Failed to fetch stock data: ${response.status}`);
+      try {
+        setIsLoading(true);
+        setError(null);
+        const response = await fetch(`http://localhost:3000/stocks/${ticker}`);
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch stock data: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setStockData(data);
+      } catch (error) {
+        console.error("Error fetching stock data:", error);
+        setError("Failed to load stock data. Please try again later.");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
-    const data = await response.json();
-    console.log("Data fetched successfully");
-    return data;
-  } catch (error) {
-    console.error("Error fetching stock data:", error);
-    throw error;
-  }
-}
+    fetchStockData();
+  }, [ticker]);
 
-export default async function StockPage({ params }: StockPageProps) {
-  const { ticker } = await params;
-  const stockData = await getStockData(ticker);
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Typography color="error">{error}</Typography>
+      </Box>
+    );
+  }
+
+  if (!stockData) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Typography>No data available for {ticker}</Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box className={Styles.container}>
-      <Typography variant="h4" component="h1" className={Styles.title}>
-        {ticker.toUpperCase()} Stock Details
-      </Typography>
-
       <Box className={Styles.section}>
         <CompanyOverview company={stockData.company} />
       </Box>
