@@ -22,6 +22,7 @@ import { breakpoints, mediaQueries } from "@/styles/breakpoints";
 import { formatLargeNumber } from "@/utils/formatNumber";
 
 import Styles from "./StockList.module.scss";
+import { useRouter } from "next/navigation";
 
 export type StockListType = "marketCap" | "gainer";
 
@@ -54,6 +55,7 @@ const StockItemComponent = ({
   isSmallMediumScreen: boolean;
   isIPadAirSize: boolean;
 }) => {
+  const router = useRouter();
   const contentStyle = isIPadAirSize
     ? {
         gap: "0.15rem",
@@ -117,7 +119,7 @@ const StockItemComponent = ({
         "&:hover": { bgcolor: "action.hover", cursor: "pointer" },
         position: "relative",
       }}
-      onClick={() => console.log(`Redirect to ${stock.symbol} details`)}
+      onClick={() => router.push(`/stock/${stock.symbol}`)}
     >
       <ListItemAvatar
         sx={{ minWidth: isMobile || isIPadAirSize ? "40px" : "56px" }}

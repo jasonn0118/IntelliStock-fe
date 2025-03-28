@@ -240,7 +240,7 @@ export function CompanyOverview({
                   Location
                 </Typography>
                 <Typography variant="body1" sx={{ color: "#fff" }}>
-                  {company.city}, {company.state}
+                  {company.city}, {company.state}, {company.country}
                 </Typography>
               </Box>
             </Grid>
