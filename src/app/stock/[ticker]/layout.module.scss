@@ -1,21 +1,32 @@
 .container {
   display: flex;
-  width: 100%;
   min-height: 100vh;
   background-color: #121212;
-  color: #fff;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    display: block;
+  }
 }
 
 .content {
   flex: 1;
   padding: 24px;
-  overflow-y: auto;
   max-width: calc(100% - 320px);
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 16px;
+  }
 }
 
-@media (max-width: 768px) {
-  .content {
-    padding: 16px;
-    max-width: 100%;
+.sidebarContainer {
+  position: relative;
+  width: 320px;
+  flex-shrink: 0;
+  
+  @media (max-width: 768px) {
+    display: none;
   }
-} 
+}
+

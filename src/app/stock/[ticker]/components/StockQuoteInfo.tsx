@@ -2,14 +2,10 @@
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Skeleton, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+
+import { formatLargeNumber } from "@/utils/formatNumber";
 
 export interface QuoteData {
   id: string;
@@ -42,15 +38,6 @@ export function StockQuoteInfo({
   quote,
   isLoading = false,
 }: StockQuoteInfoProps) {
-  const formatNumber = (num: string | number) => {
-    const value = Number(num);
-    if (value >= 1e12) return `${(value / 1e12).toFixed(2)}T`;
-    if (value >= 1e9) return `${(value / 1e9).toFixed(2)}B`;
-    if (value >= 1e6) return `${(value / 1e6).toFixed(2)}M`;
-    if (value >= 1e3) return `${(value / 1e3).toFixed(2)}K`;
-    return value.toLocaleString();
-  };
-
   const formatPercentage = (value: string) => {
     const num = parseFloat(value);
     return `${num > 0 ? "+" : ""}${num.toFixed(2)}%`;
@@ -68,6 +55,27 @@ export function StockQuoteInfo({
     mb: 2,
     borderRadius: "8px",
     height: "100%",
+    border: "1px solid #333",
+    transition: "all 0.2s ease-in-out",
+    "&:hover": {
+      bgcolor: "#2a2a2a",
+      borderColor: "#444",
+    },
+  };
+
+  const labelStyle = {
+    color: "text.secondary",
+    fontSize: "0.875rem",
+    fontWeight: 500,
+    mb: 0.5,
+  };
+
+  const valueStyle = {
+    color: "#fff",
+    fontSize: "1.1rem",
+    fontWeight: 700,
+    letterSpacing: "0.01em",
+    wordBreak: "break-word",
   };
 
   if (isLoading) {
@@ -82,7 +90,7 @@ export function StockQuoteInfo({
 
         <Grid container spacing={2}>
           {[...Array(7)].map((_, index) => (
-            <Grid item xs={12} sm={index === 6 ? 12 : 6} key={index}>
+            <Grid size={{ xs: 12, sm: index === 6 ? 12 : 6 }} key={index}>
               <Card sx={cardStyle}>
                 <CardContent>
                   <Skeleton variant="text" height={20} width="60%" />
@@ -113,7 +121,10 @@ export function StockQuoteInfo({
       <Card sx={{ ...cardStyle, mb: 3 }}>
         <CardContent>
           <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
-            <Typography variant="h4" sx={{ color: "#fff", mr: 1 }}>
+            <Typography
+              variant="h4"
+              sx={{ color: "#fff", mr: 1, fontWeight: 700 }}
+            >
               ${parseFloat(quote.price).toFixed(2)}
             </Typography>
             <Box
@@ -122,10 +133,11 @@ export function StockQuoteInfo({
                 alignItems: "center",
                 color: changeColor,
                 mb: 0.5,
+                fontWeight: 600,
               }}
             >
               {isPositiveChange ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-              <Typography variant="body1" sx={{ fontWeight: "medium" }}>
+              <Typography variant="body1">
                 {formatPercentage(quote.changesPercentage)} ($
                 {parseFloat(quote.change).toFixed(2)})
               </Typography>
@@ -138,19 +150,11 @@ export function StockQuoteInfo({
       </Card>
 
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Card sx={cardStyle}>
             <CardContent>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                Day Range
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#fff",
-                  wordBreak: "break-word",
-                }}
-              >
+              <Typography sx={labelStyle}>Day Range</Typography>
+              <Typography sx={valueStyle}>
                 ${parseFloat(quote.dayLow).toFixed(2)} - $
                 {parseFloat(quote.dayHigh).toFixed(2)}
               </Typography>
@@ -158,19 +162,11 @@ export function StockQuoteInfo({
           </Card>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Card sx={cardStyle}>
             <CardContent>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                Year Range
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#fff",
-                  wordBreak: "break-word",
-                }}
-              >
+              <Typography sx={labelStyle}>Year Range</Typography>
+              <Typography sx={valueStyle}>
                 ${parseFloat(quote.yearLow).toFixed(2)} - $
                 {parseFloat(quote.yearHigh).toFixed(2)}
               </Typography>
@@ -178,94 +174,56 @@ export function StockQuoteInfo({
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card sx={cardStyle}>
             <CardContent>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                Volume
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#fff",
-                }}
-              >
-                {formatNumber(quote.volume)}
+              <Typography sx={labelStyle}>Volume</Typography>
+              <Typography sx={valueStyle}>
+                {formatLargeNumber(quote.volume)}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card sx={cardStyle}>
             <CardContent>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                Avg. Volume
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#fff",
-                }}
-              >
-                {formatNumber(quote.avgVolume)}
+              <Typography sx={labelStyle}>Avg. Volume</Typography>
+              <Typography sx={valueStyle}>
+                {formatLargeNumber(quote.avgVolume)}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card sx={cardStyle}>
             <CardContent>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                50 Day Avg
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#fff",
-                  wordBreak: "break-word",
-                }}
-              >
+              <Typography sx={labelStyle}>50 Day Avg</Typography>
+              <Typography sx={valueStyle}>
                 ${parseFloat(quote.priceAvg50).toFixed(2)}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card sx={cardStyle}>
             <CardContent>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                200 Day Avg
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#fff",
-                  wordBreak: "break-word",
-                }}
-              >
+              <Typography sx={labelStyle}>200 Day Avg</Typography>
+              <Typography sx={valueStyle}>
                 ${parseFloat(quote.priceAvg200).toFixed(2)}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Card sx={cardStyle}>
             <CardContent>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                Market Cap
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#fff",
-                  wordBreak: "break-word",
-                }}
-              >
-                ${formatNumber(quote.marketCap)}
+              <Typography sx={labelStyle}>Market Cap</Typography>
+              <Typography sx={valueStyle}>
+                ${formatLargeNumber(quote.marketCap)}
               </Typography>
             </CardContent>
           </Card>

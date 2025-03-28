@@ -1,11 +1,11 @@
 "use client";
 
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography, useMediaQuery,useTheme } from "@mui/material";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { CompanyOverview } from "./components/CompanyOverview";
-import { QuoteData } from "./components/StockQuoteInfo";
+import { QuoteData, StockQuoteInfo } from "./components/StockQuoteInfo";
 import Styles from "./page.module.scss";
 
 interface Company {
@@ -38,6 +38,8 @@ export default function StockPage() {
   const [stockData, setStockData] = useState<StockData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     async function fetchStockData() {
@@ -115,12 +117,12 @@ export default function StockPage() {
       <Box className={Styles.section}>
         <CompanyOverview company={stockData.company} />
       </Box>
-
-      <Box id="overview" className={Styles.section}>
-        <Typography variant="h5" component="h2" className={Styles.sectionTitle}>
-          Overview
-        </Typography>
-      </Box>
+      {
+        isMobile && (
+      <Box className={Styles.section}>
+        <StockQuoteInfo quote={stockData.quotes?.[0]} isLoading={isLoading} />
+      </Box>)
+      }
 
       <Box id="technical" className={Styles.section}>
         <Typography variant="h5" component="h2" className={Styles.sectionTitle}>

@@ -116,6 +116,7 @@ const StockSearchSection = () => {
           renderOption={(props, option) => (
             <li
               {...props}
+              key={option.symbol}
               style={{ backgroundColor: "#121212", color: "#f5f5f5" }}
             >
               <Box
