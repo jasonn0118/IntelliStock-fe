@@ -23,6 +23,8 @@ $margin-md: 10px;
 $max-width: 800px;
 $background-dark: #0a1211;
 $foreground-dark: #ededed;
+$header-height: 75px;
+$footer-height: 0px; // Adjust if you have a fixed footer height
 
 // Root variables
 :root {
@@ -48,6 +50,8 @@ $foreground-dark: #ededed;
   --margin-lg: #{$margin-lg};
   --margin-md: #{$margin-md};
   --max-width: #{$max-width};
+  --header-height: #{$header-height};
+  --footer-height: #{$footer-height};
 
   @media (prefers-color-scheme: dark) {
     --background: #{$background-dark};

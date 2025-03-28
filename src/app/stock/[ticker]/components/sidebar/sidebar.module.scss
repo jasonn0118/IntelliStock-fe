@@ -1,15 +1,24 @@
 .sidebar {
   width: 320px;
-  height: auto;
-  max-height: 100vh;
-  background-color: #1e1e1e;
+  height: calc(100vh - var(--header-height));
+  background-color: var(--background-color);
   border-left: none;
-  position: sticky;
-  top: 0;
-  right: 0;
   overflow-y: auto;
-  padding-bottom: 24px;
-  z-index: 100;
+  position: fixed;
+  top: var(--header-height);
+  right: 0;
+  max-height: calc(100vh - var(--header-height));
+
+
+  @media (max-width: 768px) {
+    position: static;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    max-width: 100%;
+    margin-top: 30px;
+
+  }
 }
 
 .header {
