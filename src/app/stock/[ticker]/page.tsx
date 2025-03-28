@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, CircularProgress, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, CircularProgress, Typography, useMediaQuery,useTheme } from "@mui/material";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 

@@ -272,16 +272,7 @@ export function CompanyOverview({
                     },
                   }}
                 >
-                  {(() => {
-                    try {
-                      const hostname = new URL(company.website).hostname;
-                      return hostname.length > 25
-                        ? hostname.substring(0, 22) + "..."
-                        : hostname;
-                    } catch (e) {
-                      return company.website;
-                    }
-                  })()}
+                  {new URL(company.website).hostname}
                 </Typography>
               </Box>
             </Grid>

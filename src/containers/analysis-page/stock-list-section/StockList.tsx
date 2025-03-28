@@ -16,13 +16,13 @@ import {
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { breakpoints, mediaQueries } from "@/styles/breakpoints";
 import { formatLargeNumber } from "@/utils/formatNumber";
 
 import Styles from "./StockList.module.scss";
-import { useRouter } from "next/navigation";
 
 export type StockListType = "marketCap" | "gainer";
 

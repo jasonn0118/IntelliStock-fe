@@ -1,10 +1,11 @@
 "use client";
 
-import { formatLargeNumber } from "@/utils/formatNumber";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { Box, Card, CardContent, Skeleton, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+
+import { formatLargeNumber } from "@/utils/formatNumber";
 
 export interface QuoteData {
   id: string;
