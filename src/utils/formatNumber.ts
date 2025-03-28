@@ -1,4 +1,4 @@
-export function formatLargeNumber(value: number|string): string {
+export function formatLargeNumber(value: number | string): string {
   const num = Number(value);
   if (num >= 1e12) {
     return `${(num / 1e12).toFixed(2)}T`;

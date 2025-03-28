@@ -12,11 +12,21 @@
 .content {
   flex: 1;
   padding: 24px;
-  width: 100%;
   max-width: calc(100% - 320px);
-
+  
   @media (max-width: 768px) {
     max-width: 100%;
+    padding: 16px;
+  }
+}
+
+.sidebarContainer {
+  position: relative;
+  width: 320px;
+  flex-shrink: 0;
+  
+  @media (max-width: 768px) {
+    display: none;
   }
 }
 

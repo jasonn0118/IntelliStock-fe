@@ -16,7 +16,7 @@ export const Sidebar = ({ quoteData, isLoading = false }: SidebarProps) => {
 
   return (
     <Paper className={Styles.sidebar} elevation={0} ref={sidebarRef}>
-      <Box p={3}>
+      <Box p={3} pt={6}>
         <StockQuoteInfo quote={quoteData} isLoading={isLoading} />
       </Box>
     </Paper>

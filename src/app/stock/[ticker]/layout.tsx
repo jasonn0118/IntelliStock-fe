@@ -82,16 +82,15 @@ export default function StockLayout({ children }: StockLayoutProps) {
 
   return (
     <Box className={Styles.container}>
-      {isMobile ? (
-        <Box className={Styles.content}>
-          {children}
+      <Box className={Styles.content}>
+        {children}
+        {isMobile && <Sidebar quoteData={quoteData} isLoading={isLoading} />}
+      </Box>
+
+      {!isMobile && (
+        <Box className={Styles.sidebarContainer}>
           <Sidebar quoteData={quoteData} isLoading={isLoading} />
         </Box>
-      ) : (
-        <>
-          <Box className={Styles.content}>{children}</Box>
-          <Sidebar quoteData={quoteData} isLoading={isLoading} />
-        </>
       )}
     </Box>
   );

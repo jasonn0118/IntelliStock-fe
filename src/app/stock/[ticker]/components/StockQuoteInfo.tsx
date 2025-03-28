@@ -3,13 +3,7 @@
 import { formatLargeNumber } from "@/utils/formatNumber";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import {
-  Box,
-  Card,
-  CardContent,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Skeleton, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 export interface QuoteData {
@@ -42,8 +36,7 @@ interface StockQuoteInfoProps {
 export function StockQuoteInfo({
   quote,
   isLoading = false,
-}: StockQuoteInfoProps) {  
-
+}: StockQuoteInfoProps) {
   const formatPercentage = (value: string) => {
     const num = parseFloat(value);
     return `${num > 0 ? "+" : ""}${num.toFixed(2)}%`;
@@ -96,7 +89,7 @@ export function StockQuoteInfo({
 
         <Grid container spacing={2}>
           {[...Array(7)].map((_, index) => (
-            <Grid size={{xs: 12, sm: index === 6 ? 12 : 6}} key={index}>
+            <Grid size={{ xs: 12, sm: index === 6 ? 12 : 6 }} key={index}>
               <Card sx={cardStyle}>
                 <CardContent>
                   <Skeleton variant="text" height={20} width="60%" />
@@ -156,7 +149,7 @@ export function StockQuoteInfo({
       </Card>
 
       <Grid container spacing={2}>
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={12}>
           <Card sx={cardStyle}>
             <CardContent>
               <Typography sx={labelStyle}>Day Range</Typography>
@@ -168,7 +161,7 @@ export function StockQuoteInfo({
           </Card>
         </Grid>
 
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={12}>
           <Card sx={cardStyle}>
             <CardContent>
               <Typography sx={labelStyle}>Year Range</Typography>
@@ -180,7 +173,7 @@ export function StockQuoteInfo({
           </Card>
         </Grid>
 
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card sx={cardStyle}>
             <CardContent>
               <Typography sx={labelStyle}>Volume</Typography>
@@ -191,7 +184,7 @@ export function StockQuoteInfo({
           </Card>
         </Grid>
 
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card sx={cardStyle}>
             <CardContent>
               <Typography sx={labelStyle}>Avg. Volume</Typography>
@@ -202,7 +195,7 @@ export function StockQuoteInfo({
           </Card>
         </Grid>
 
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card sx={cardStyle}>
             <CardContent>
               <Typography sx={labelStyle}>50 Day Avg</Typography>
@@ -213,7 +206,7 @@ export function StockQuoteInfo({
           </Card>
         </Grid>
 
-        <Grid size={{xs: 12, sm: 6}}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card sx={cardStyle}>
             <CardContent>
               <Typography sx={labelStyle}>200 Day Avg</Typography>
@@ -224,7 +217,7 @@ export function StockQuoteInfo({
           </Card>
         </Grid>
 
-        <Grid size={{xs: 12}}>
+        <Grid size={{ xs: 12 }}>
           <Card sx={cardStyle}>
             <CardContent>
               <Typography sx={labelStyle}>Market Cap</Typography>
