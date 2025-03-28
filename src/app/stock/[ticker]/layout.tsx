@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import { useParams } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 
@@ -39,10 +39,20 @@ export default function StockLayout({ children }: StockLayoutProps) {
   const ticker = params.ticker as string;
   const [stockData, setStockData] = useState<StockData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Use MUI's useMediaQuery hook
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   useEffect(() => {
     async function fetchStockData() {
@@ -72,10 +82,7 @@ export default function StockLayout({ children }: StockLayoutProps) {
 
   return (
     <Box className={Styles.container}>
-      <Box className={Styles.content}>
-        {children}
-        {isMobile && <Sidebar quoteData={quoteData} isLoading={isLoading} />}
-      </Box>
+      <Box className={Styles.content}>{children}</Box>
 
       {!isMobile && (
         <Box className={Styles.sidebarContainer}>

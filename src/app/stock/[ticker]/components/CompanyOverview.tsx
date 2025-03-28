@@ -99,7 +99,7 @@ export function CompanyOverview({
   return (
     <Paper sx={{ p: 3, bgcolor: "#1e1e1e" }}>
       <Grid container spacing={3}>
-        <Grid size={{ xs: 12, md: 3 }}>
+        <Grid size={{ xs: 12, lg: 3 }}>
           <Box
             sx={{
               display: "flex",
@@ -144,7 +144,7 @@ export function CompanyOverview({
             </Box>
           </Box>
         </Grid>
-        <Grid size={{ xs: 12, md: 9 }}>
+        <Grid size={{ xs: 12, lg: 9 }}>
           <Box sx={{ mb: 2 }}>
             <Typography variant="h5" sx={{ color: "#fff", display: "inline" }}>
               {company.name}
@@ -193,7 +193,7 @@ export function CompanyOverview({
                   },
                 }}
               >
-                {expanded ? "Read less" : "Read more"}
+                {expanded ? "Show less" : "...more"}
               </Button>
             )}
           </Box>
@@ -261,14 +261,27 @@ export function CompanyOverview({
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
-                    color: "#fff",
+                    color: "#7986cb",
                     textDecoration: "none",
+                    wordBreak: "break-word",
+                    display: "block",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
                     "&:hover": {
                       textDecoration: "underline",
                     },
                   }}
                 >
-                  {new URL(company.website).hostname}
+                  {(() => {
+                    try {
+                      const hostname = new URL(company.website).hostname;
+                      return hostname.length > 25
+                        ? hostname.substring(0, 22) + "..."
+                        : hostname;
+                    } catch (e) {
+                      return company.website;
+                    }
+                  })()}
                 </Typography>
               </Box>
             </Grid>
