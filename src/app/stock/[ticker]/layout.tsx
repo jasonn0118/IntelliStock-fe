@@ -5,8 +5,30 @@ import { useParams } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 
 import { Sidebar } from "./components/sidebar/sidebar";
-
+import { QuoteData } from "./components/StockQuoteInfo";
 import Styles from "./layout.module.scss";
+
+interface StockData {
+  company?: {
+    id: number;
+    ticker: string;
+    name: string;
+    industry: string;
+    sector: string;
+    website: string;
+    description: string;
+    ceo: string;
+    country: string;
+    fullTimeEmployees: string;
+    phone: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    logoUrl: string;
+  };
+  quotes?: QuoteData[];
+}
 
 interface StockLayoutProps {
   children: ReactNode;
@@ -15,7 +37,7 @@ interface StockLayoutProps {
 export default function StockLayout({ children }: StockLayoutProps) {
   const params = useParams();
   const ticker = params.ticker as string;
-  const [stockData, setStockData] = useState<any>(null);
+  const [stockData, setStockData] = useState<StockData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

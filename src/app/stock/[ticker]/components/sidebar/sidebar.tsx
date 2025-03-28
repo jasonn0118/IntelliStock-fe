@@ -3,12 +3,11 @@
 import { Box, Paper } from "@mui/material";
 import { useRef } from "react";
 
-import { StockQuoteInfo } from "../StockQuoteInfo";
-
+import { QuoteData, StockQuoteInfo } from "../StockQuoteInfo";
 import Styles from "./sidebar.module.scss";
 
 interface SidebarProps {
-  quoteData?: any;
+  quoteData?: QuoteData;
   isLoading?: boolean;
 }
 

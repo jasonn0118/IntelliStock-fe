@@ -9,10 +9,10 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { mediaQueries } from "@/styles/breakpoints";
-import { useRouter } from "next/navigation";
 
 import styles from "./StockSearchSection.module.scss";
 

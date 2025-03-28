@@ -9,10 +9,9 @@ import {
   Grid,
   Skeleton,
   Typography,
-  useTheme,
 } from "@mui/material";
 
-interface QuoteData {
+export interface QuoteData {
   id: string;
   date: string;
   open: string;
@@ -43,8 +42,6 @@ export function StockQuoteInfo({
   quote,
   isLoading = false,
 }: StockQuoteInfoProps) {
-  const theme = useTheme();
-
   const formatNumber = (num: string | number) => {
     const value = Number(num);
     if (value >= 1e12) return `${(value / 1e12).toFixed(2)}T`;
