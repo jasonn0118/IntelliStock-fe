@@ -15,6 +15,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import Image from "next/image";
 import { useState } from "react";
 
 import { breakpoints, mediaQueries } from "@/styles/breakpoints";
@@ -30,6 +31,7 @@ interface StockItem {
   price: string;
   marketCap?: string;
   changesPercentage?: string;
+  logoUrl?: string;
 }
 
 interface StockListProps {
@@ -124,9 +126,23 @@ const StockItemComponent = ({
           sx={{
             width: isMobile ? "30px" : isIPadAirSize ? "28px" : "40px",
             height: isMobile ? "30px" : isIPadAirSize ? "28px" : "40px",
+            bgcolor: "#333",
+            border: "1px solid #444",
+            borderRadius: "8px",
+            overflow: "hidden",
           }}
         >
-          {stock.symbol[0]}
+          {stock.logoUrl ? (
+            <Image
+              src={stock.logoUrl}
+              alt={`${stock.symbol} logo`}
+              width={isMobile ? 30 : isIPadAirSize ? 28 : 40}
+              height={isMobile ? 30 : isIPadAirSize ? 28 : 40}
+              style={{ objectFit: "contain" }}
+            />
+          ) : (
+            stock.symbol[0]
+          )}
         </Avatar>
       </ListItemAvatar>
       <div className={Styles.stockContent} style={contentStyle}>

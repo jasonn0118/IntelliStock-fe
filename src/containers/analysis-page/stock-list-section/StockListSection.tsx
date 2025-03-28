@@ -11,6 +11,7 @@ interface StockItem {
   price: string;
   marketCap?: string;
   changesPercentage?: string;
+  logoUrl?: string;
 }
 
 export default function StockListSection() {
