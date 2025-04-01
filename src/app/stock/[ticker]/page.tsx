@@ -7,78 +7,39 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { observer } from "mobx-react-lite";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+
+import stockStore from "@/lib/store/stockStore";
 
 import { CompanyOverview } from "./components/CompanyOverview";
 import { StockQuoteInfo } from "./components/StockQuoteInfo";
 import { TechnicalAnalysis } from "./components/TechnicalAnalysis";
 import Styles from "./page.module.scss";
-import { StockData } from "./types";
 
-export default function StockPage() {
+const StockPage = observer(() => {
+  const { isLoading, error } = stockStore;
   const params = useParams();
   const ticker = params.ticker as string;
-  const [stockData, setStockData] = useState<StockData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const dataFetchedRef = useRef(false);
 
+  // Data fetching moved here from layout for consistency
   useEffect(() => {
-    async function fetchStockData() {
-      if (!ticker) return;
-
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        // Fetch static data
-        const staticResponse = await fetch(
-          `http://localhost:3000/stocks/${ticker}/static`,
-          {
-            next: { revalidate: 60 * 60 * 24 * 7 }, // 1 week
-          }
-        );
-
-        if (!staticResponse.ok) {
-          throw new Error(
-            `Failed to fetch static data: ${staticResponse.status}`
-          );
-        }
-
-        // Fetch dynamic data
-        const dynamicResponse = await fetch(
-          `http://localhost:3000/stocks/${ticker}/dynamic`,
-          {
-            next: { revalidate: 60 * 60 * 24 }, // 1 day
-          }
-        );
-
-        if (!dynamicResponse.ok) {
-          throw new Error(
-            `Failed to fetch dynamic data: ${dynamicResponse.status}`
-          );
-        }
-
-        const [staticData, dynamicData] = await Promise.all([
-          staticResponse.json(),
-          dynamicResponse.json(),
-        ]);
-
-        setStockData({
-          static: staticData,
-          dynamic: dynamicData,
-        });
-      } catch (error) {
-        console.error("Error fetching stock data:", error);
-        setError("Failed to load stock data. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
+    if (!dataFetchedRef.current) {
+      console.log(`StockPage: Fetching data for ticker ${ticker}`);
+      stockStore.reset();
+      stockStore.fetchStockData(ticker);
+      dataFetchedRef.current = true;
     }
 
-    fetchStockData();
+    return () => {
+      console.log(`StockPage: Cleanup for ticker ${ticker}`);
+      dataFetchedRef.current = false;
+      stockStore.reset();
+    };
   }, [ticker]);
 
   if (isLoading) {
@@ -111,32 +72,14 @@ export default function StockPage() {
     );
   }
 
-  if (!stockData) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <Typography>No data available for {ticker}</Typography>
-      </Box>
-    );
-  }
-
   return (
     <Box className={Styles.container}>
       <Box className={Styles.section}>
-        <CompanyOverview company={stockData.static?.company} />
+        <CompanyOverview />
       </Box>
       {isMobile && (
         <Box className={Styles.section}>
-          <StockQuoteInfo
-            quote={stockData.dynamic?.quotes[0]}
-            isLoading={isLoading}
-          />
+          <StockQuoteInfo />
         </Box>
       )}
 
@@ -144,10 +87,7 @@ export default function StockPage() {
         <Typography variant="h5" component="h2" className={Styles.sectionTitle}>
           Technical Analysis
         </Typography>
-        <TechnicalAnalysis
-          structuredAnalysis={stockData.dynamic?.structuredAnalysis}
-          isLoading={isLoading}
-        />
+        <TechnicalAnalysis />
       </Box>
 
       <Box id="history" className={Styles.section}>
@@ -163,4 +103,6 @@ export default function StockPage() {
       </Box>
     </Box>
   );
-}
+});
+
+export default StockPage;
