@@ -8,9 +8,12 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import Image from "next/image";
 
-import { Logo } from "@/components/Logo";
 import { breakpoints } from "@/styles/breakpoints";
+
+// Assets
+import Logo from "../../../../../public/logo/Logo.png";
 
 interface StockInfoProps {
   data: {
@@ -40,7 +43,12 @@ export function StockInfo({ data }: StockInfoProps) {
               mb: { xs: 2, md: 0 },
             }}
           >
-            <Logo ticker={data.ticker} size={isMobile ? 120 : 160} />
+            <Image
+              src={Logo}
+              alt={`${data.ticker} Logo`}
+              width={isMobile ? 120 : 160}
+              height={isMobile ? 120 : 160}
+            />
           </Box>
         </Grid>
         <Grid xs={12} md={9}>

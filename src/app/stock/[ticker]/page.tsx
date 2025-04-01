@@ -1,36 +1,20 @@
 "use client";
 
-import { Box, CircularProgress, Typography, useMediaQuery,useTheme } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { CompanyOverview } from "./components/CompanyOverview";
-import { QuoteData, StockQuoteInfo } from "./components/StockQuoteInfo";
+import { StockQuoteInfo } from "./components/StockQuoteInfo";
+import { TechnicalAnalysis } from "./components/TechnicalAnalysis";
 import Styles from "./page.module.scss";
-
-interface Company {
-  id: number;
-  ticker: string;
-  name: string;
-  industry: string;
-  sector: string;
-  website: string;
-  description: string;
-  ceo: string;
-  country: string;
-  fullTimeEmployees: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-  logoUrl: string;
-}
-
-interface StockData {
-  company?: Company;
-  quotes?: QuoteData[];
-}
+import { StockData } from "./types";
 
 export default function StockPage() {
   const params = useParams();
@@ -48,14 +32,44 @@ export default function StockPage() {
       try {
         setIsLoading(true);
         setError(null);
-        const response = await fetch(`http://localhost:3000/stocks/${ticker}`);
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch stock data: ${response.status}`);
+        // Fetch static data
+        const staticResponse = await fetch(
+          `http://localhost:3000/stocks/${ticker}/static`,
+          {
+            next: { revalidate: 60 * 60 * 24 * 7 }, // 1 week
+          }
+        );
+
+        if (!staticResponse.ok) {
+          throw new Error(
+            `Failed to fetch static data: ${staticResponse.status}`
+          );
         }
 
-        const data = await response.json();
-        setStockData(data);
+        // Fetch dynamic data
+        const dynamicResponse = await fetch(
+          `http://localhost:3000/stocks/${ticker}/dynamic`,
+          {
+            next: { revalidate: 60 * 60 * 24 }, // 1 day
+          }
+        );
+
+        if (!dynamicResponse.ok) {
+          throw new Error(
+            `Failed to fetch dynamic data: ${dynamicResponse.status}`
+          );
+        }
+
+        const [staticData, dynamicData] = await Promise.all([
+          staticResponse.json(),
+          dynamicResponse.json(),
+        ]);
+
+        setStockData({
+          static: staticData,
+          dynamic: dynamicData,
+        });
       } catch (error) {
         console.error("Error fetching stock data:", error);
         setError("Failed to load stock data. Please try again later.");
@@ -115,19 +129,25 @@ export default function StockPage() {
   return (
     <Box className={Styles.container}>
       <Box className={Styles.section}>
-        <CompanyOverview company={stockData.company} />
+        <CompanyOverview company={stockData.static?.company} />
       </Box>
-      {
-        isMobile && (
-      <Box className={Styles.section}>
-        <StockQuoteInfo quote={stockData.quotes?.[0]} isLoading={isLoading} />
-      </Box>)
-      }
+      {isMobile && (
+        <Box className={Styles.section}>
+          <StockQuoteInfo
+            quote={stockData.dynamic?.quotes[0]}
+            isLoading={isLoading}
+          />
+        </Box>
+      )}
 
       <Box id="technical" className={Styles.section}>
         <Typography variant="h5" component="h2" className={Styles.sectionTitle}>
           Technical Analysis
         </Typography>
+        <TechnicalAnalysis
+          structuredAnalysis={stockData.dynamic?.structuredAnalysis}
+          isLoading={isLoading}
+        />
       </Box>
 
       <Box id="history" className={Styles.section}>
