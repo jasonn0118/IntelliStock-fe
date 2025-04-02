@@ -90,28 +90,6 @@ const StockPage = observer(() => {
         </Typography>
         <TechnicalAnalysis isLoading={isDynamicDataLoading} />
       </Box>
-
-      <Box id="history" className={Styles.section}>
-        <Typography variant="h5" component="h2" className={Styles.sectionTitle}>
-          Price History
-        </Typography>
-        {isDynamicDataLoading && (
-          <Box sx={{ display: "flex", justifyContent: "center", p: 3 }}>
-            <CircularProgress />
-          </Box>
-        )}
-      </Box>
-
-      <Box id="news" className={Styles.section}>
-        <Typography variant="h5" component="h2" className={Styles.sectionTitle}>
-          News
-        </Typography>
-        {isDynamicDataLoading && (
-          <Box sx={{ display: "flex", justifyContent: "center", p: 3 }}>
-            <CircularProgress />
-          </Box>
-        )}
-      </Box>
     </Box>
   );
 });

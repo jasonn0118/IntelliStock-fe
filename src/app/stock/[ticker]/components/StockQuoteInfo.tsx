@@ -265,30 +265,18 @@ export const StockQuoteInfo = observer(
                 </Card>
               </Grid>
 
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <Card sx={cardStyle}>
-                  <CardContent>
-                    <Typography sx={labelStyle}>PEG Ratio</Typography>
-                    <Typography sx={valueStyle}>
-                      {quote.statistic.pegRatio
-                        ? parseFloat(quote.statistic.pegRatio).toFixed(2)
-                        : "N/A"}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-
-              <Grid size={{ xs: 12, sm: 6 }}>
+              <Grid size={12}>
                 <Card sx={cardStyle}>
                   <CardContent>
                     <Typography sx={labelStyle}>52 Week Change</Typography>
                     <Typography
-                      sx={valueStyle}
-                      color={
-                        parseFloat(quote.statistic.weekChange52) >= 0
-                          ? "success.main"
-                          : "error.main"
-                      }
+                      sx={{
+                        ...valueStyle,
+                        color:
+                          parseFloat(quote.statistic.weekChange52) >= 0
+                            ? "#4caf50"
+                            : "#f44336",
+                      }}
                     >
                       {parseFloat(quote.statistic.weekChange52) > 0 ? "+" : ""}
                       {parseFloat(quote.statistic.weekChange52).toFixed(2)}%
