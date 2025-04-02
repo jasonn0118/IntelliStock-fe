@@ -19,7 +19,8 @@ import { TechnicalAnalysis } from "./components/TechnicalAnalysis";
 import Styles from "./page.module.scss";
 
 const StockPage = observer(() => {
-  const { isLoading, error } = stockStore;
+  const { isLoading, error, isStaticDataLoading, isDynamicDataLoading } =
+    stockStore;
   const params = useParams();
   const ticker = params.ticker as string;
   const theme = useTheme();
@@ -42,7 +43,7 @@ const StockPage = observer(() => {
     };
   }, [ticker]);
 
-  if (isLoading) {
+  if (isLoading && isStaticDataLoading) {
     return (
       <Box
         sx={{
@@ -75,11 +76,11 @@ const StockPage = observer(() => {
   return (
     <Box className={Styles.container}>
       <Box className={Styles.section}>
-        <CompanyOverview />
+        <CompanyOverview isLoading={isStaticDataLoading} />
       </Box>
       {isMobile && (
         <Box className={Styles.section}>
-          <StockQuoteInfo />
+          <StockQuoteInfo isLoading={isDynamicDataLoading} />
         </Box>
       )}
 
@@ -87,19 +88,29 @@ const StockPage = observer(() => {
         <Typography variant="h5" component="h2" className={Styles.sectionTitle}>
           Technical Analysis
         </Typography>
-        <TechnicalAnalysis />
+        <TechnicalAnalysis isLoading={isDynamicDataLoading} />
       </Box>
 
       <Box id="history" className={Styles.section}>
         <Typography variant="h5" component="h2" className={Styles.sectionTitle}>
           Price History
         </Typography>
+        {isDynamicDataLoading && (
+          <Box sx={{ display: "flex", justifyContent: "center", p: 3 }}>
+            <CircularProgress />
+          </Box>
+        )}
       </Box>
 
       <Box id="news" className={Styles.section}>
         <Typography variant="h5" component="h2" className={Styles.sectionTitle}>
           News
         </Typography>
+        {isDynamicDataLoading && (
+          <Box sx={{ display: "flex", justifyContent: "center", p: 3 }}>
+            <CircularProgress />
+          </Box>
+        )}
       </Box>
     </Box>
   );

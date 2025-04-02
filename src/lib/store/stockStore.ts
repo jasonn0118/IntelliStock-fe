@@ -6,6 +6,8 @@ class StockStore {
   staticData: StockStatic | null = null;
   dynamicData: StockDynamic | null = null;
   isLoading: boolean = true;
+  isStaticDataLoading: boolean = true;
+  isDynamicDataLoading: boolean = true;
   error: string | null = null;
   currentTicker: string | null = null;
   fetchInProgress: boolean = false;
@@ -30,44 +32,55 @@ class StockStore {
 
     try {
       this.isLoading = true;
+      this.isStaticDataLoading = true;
+      this.isDynamicDataLoading = true;
       this.error = null;
 
+      // Create promises for both requests
       console.log(`Fetching static data for ${ticker}`);
-      const staticResponse = await fetch(
+      const staticPromise = fetch(
         `http://localhost:3000/stocks/${ticker}/static`,
         {
           next: { revalidate: 60 * 60 * 24 * 7 }, // 1 week
         }
       );
+
+      console.log(`Fetching dynamic data for ${ticker}`);
+      const dynamicPromise = fetch(
+        `http://localhost:3000/stocks/${ticker}/dynamic`,
+        {
+          next: { revalidate: 60 * 60 * 24 }, // 1 day
+        }
+      );
+
+      // Handle static data as soon as it comes in
+      const staticResponse = await staticPromise;
       if (!staticResponse.ok) {
         throw new Error(
           `Failed to fetch static data: ${staticResponse.status}`
         );
       }
 
-      console.log(`Fetching dynamic data for ${ticker}`);
-      const dynamicResponse = await fetch(
-        `http://localhost:3000/stocks/${ticker}/dynamic`,
-        {
-          next: { revalidate: 60 * 60 * 24 }, // 1 day
-        }
-      );
+      const staticResult = await staticResponse.json();
+      runInAction(() => {
+        console.log(`Updating store with static data for ${ticker}`);
+        this.staticData = staticResult;
+        this.isStaticDataLoading = false;
+      });
+
+      // Continue waiting for dynamic data
+      const dynamicResponse = await dynamicPromise;
       if (!dynamicResponse.ok) {
         throw new Error(
           `Failed to fetch dynamic data: ${dynamicResponse.status}`
         );
       }
 
-      console.log(`Waiting for both responses for ${ticker}`);
-      const [staticResult, dynamicResult] = await Promise.all([
-        staticResponse.json(),
-        dynamicResponse.json(),
-      ]);
-
+      const dynamicResult = await dynamicResponse.json();
       runInAction(() => {
-        console.log(`Updating store with data for ${ticker}`);
-        this.staticData = staticResult;
+        console.log(`Updating store with dynamic data for ${ticker}`);
         this.dynamicData = dynamicResult;
+        this.isDynamicDataLoading = false;
       });
     } catch (error) {
       console.error("Error fetching stock data:", error);
@@ -77,7 +90,7 @@ class StockStore {
     } finally {
       runInAction(() => {
         console.log(`Fetch completed for ${ticker}`);
-        this.isLoading = false;
+        this.isLoading = this.isStaticDataLoading || this.isDynamicDataLoading;
         this.fetchInProgress = false;
       });
     }
@@ -88,6 +101,8 @@ class StockStore {
     this.staticData = null;
     this.dynamicData = null;
     this.isLoading = true;
+    this.isStaticDataLoading = true;
+    this.isDynamicDataLoading = true;
     this.error = null;
     this.currentTicker = null;
     this.fetchInProgress = false;
