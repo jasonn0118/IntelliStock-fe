@@ -14,21 +14,14 @@ import { breakpoints } from "@/styles/breakpoints";
 
 // Assets
 import Logo from "../../../../../public/logo/Logo.png";
+import { Company } from "../types";
 
 interface StockInfoProps {
-  data: {
-    name: string;
-    ticker: string;
-    description: string;
-    industry: string;
-    sector: string;
-    marketCap: number;
-    employees: number;
-    founded: string;
-  };
+  data: Company;
+  marketCap?: string;
 }
 
-export function StockInfo({ data }: StockInfoProps) {
+export function StockInfo({ data, marketCap }: StockInfoProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down(breakpoints.sm));
 
@@ -44,7 +37,7 @@ export function StockInfo({ data }: StockInfoProps) {
             }}
           >
             <Image
-              src={Logo}
+              src={data.logoUrl || Logo}
               alt={`${data.ticker} Logo`}
               width={isMobile ? 120 : 160}
               height={isMobile ? 120 : 160}
@@ -70,7 +63,9 @@ export function StockInfo({ data }: StockInfoProps) {
                 Market Cap
               </Typography>
               <Typography variant="body1" sx={{ color: "#fff" }}>
-                ${(data.marketCap / 1e9).toFixed(2)}B
+                {marketCap && parseFloat(marketCap) > 0
+                  ? `$${(parseFloat(marketCap) / 1e9).toFixed(2)}B`
+                  : "N/A"}
               </Typography>
             </Grid>
             <Grid xs={6} sm={3}>
@@ -78,15 +73,27 @@ export function StockInfo({ data }: StockInfoProps) {
                 Employees
               </Typography>
               <Typography variant="body1" sx={{ color: "#fff" }}>
-                {(data.employees / 1000).toFixed(1)}K
+                {parseInt(data.fullTimeEmployees || "0") > 0
+                  ? parseInt(data.fullTimeEmployees || "0") > 1000
+                    ? `${(parseInt(data.fullTimeEmployees) / 1000).toFixed(1)}K`
+                    : data.fullTimeEmployees
+                  : "N/A"}
               </Typography>
             </Grid>
             <Grid xs={6} sm={3}>
               <Typography variant="body2" color="text.secondary">
-                Founded
+                CEO
               </Typography>
               <Typography variant="body1" sx={{ color: "#fff" }}>
-                {data.founded}
+                {data.ceo || "N/A"}
+              </Typography>
+            </Grid>
+            <Grid xs={6} sm={3}>
+              <Typography variant="body2" color="text.secondary">
+                Country
+              </Typography>
+              <Typography variant="body1" sx={{ color: "#fff" }}>
+                {data.country || "N/A"}
               </Typography>
             </Grid>
           </Grid>

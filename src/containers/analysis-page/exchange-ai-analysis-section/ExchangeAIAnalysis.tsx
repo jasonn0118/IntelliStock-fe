@@ -9,8 +9,9 @@ import {
   useTheme,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
 
+import marketStore from "@/lib/store/marketStore";
 import { breakpoints } from "@/styles/breakpoints";
 import { formatLargeNumber } from "@/utils/formatNumber";
 
@@ -18,78 +19,14 @@ import Styles from "./ExchangeAIAnalysis.module.scss";
 import { SentimentBar } from "./SentimentBar";
 import { StatCard } from "./StatCard";
 
-interface MarketSummary {
-  date: string;
-  exchange: string;
-  compositeIndex: {
-    price: number;
-    change: number;
-    changePercent: number;
-    volume: number;
-  };
-  stats: {
-    totalMarketCap: number;
-    marketCapChangePercent: number;
-    averagePE: number;
-    totalVolume: number;
-    advancingStocks: number;
-    decliningStocks: number;
-    unchangedStocks: number;
-    advanceDeclineRatio: number;
-  };
-  breadth: {
-    sentiment: string;
-    advancingCount: number;
-    decliningCount: number;
-    unchangedCount: number;
-    advanceDeclineRatio: number;
-  };
-  timestamp: number;
-  aiAnalysis?: {
-    overallMarketSentiment: string;
-    keyTechnicalIndicatorsAndMarketBreadth: string;
-    volumeAnalysisAndTradingActivity: string;
-    peRatioEvaluation: string;
-    keyPointsToWatch: string;
-    recommendations: string;
-  };
-}
-
-export default function ExchangeAIAnalysis() {
-  const [marketSummary, setMarketSummary] = useState<MarketSummary | null>(
-    null
-  );
-  const [loading, setLoading] = useState(true);
-  // eslint-disable-next-line
-  const [aiLoading, setAiLoading] = useState(false);
+const ExchangeAIAnalysis = observer(() => {
+  const { marketSummary, isLoading } = marketStore;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down(breakpoints.sm));
 
-  useEffect(() => {
-    const fetchMarketSummary = async () => {
-      setAiLoading(true);
-      try {
-        const response = await fetch(
-          `http://localhost:3000/stocks/market-summary?date=${
-            new Date().toISOString().split("T")[0]
-          }`
-        );
-        const data = await response.json();
-        setMarketSummary(data);
-        setLoading(false);
-        setAiLoading(false);
-      } catch (error) {
-        console.error("Error fetching market summary:", error);
-      } finally {
-        setLoading(false);
-        setAiLoading(false);
-      }
-    };
+  // No useEffect here, data is fetched by the parent Analysis component
 
-    fetchMarketSummary();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <Typography>Loading market summary...</Typography>;
   }
 
@@ -194,7 +131,7 @@ export default function ExchangeAIAnalysis() {
           AI Market Analysis
         </Typography>
 
-        {loading ? (
+        {isLoading ? (
           <Box sx={{ display: "flex", justifyContent: "center", p: 3 }}>
             <CircularProgress />
           </Box>
@@ -250,7 +187,7 @@ export default function ExchangeAIAnalysis() {
                   mb: 1,
                 }}
               >
-                Volume Analysis:
+                Volume Analysis & Trading Activity:
               </Typography>
               <Typography
                 variant="body2"
@@ -270,7 +207,7 @@ export default function ExchangeAIAnalysis() {
                   mb: 1,
                 }}
               >
-                P/E Ratio Analysis:
+                P/E Ratio Evaluation:
               </Typography>
               <Typography
                 variant="body2"
@@ -324,11 +261,29 @@ export default function ExchangeAIAnalysis() {
             </Box>
           </Paper>
         ) : (
-          <Typography color="error">
-            Unable to generate AI insights at this time.
-          </Typography>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 3,
+              bgcolor: "#121212",
+              border: "1px solid #333",
+              borderRadius: 2,
+            }}
+          >
+            <Typography
+              variant="body1"
+              sx={{
+                color: "#f5f5f5",
+                fontSize: isMobile ? "0.9rem" : "1rem",
+              }}
+            >
+              AI analysis is not available for today&apos;s market data yet.
+            </Typography>
+          </Paper>
         )}
       </Box>
     </section>
   );
-}
+});
+
+export default ExchangeAIAnalysis;
