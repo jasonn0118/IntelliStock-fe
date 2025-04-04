@@ -14,14 +14,17 @@ export async function signUpUserWithEmailAndPassword({
   lastName,
 }: SignUpUser) {
   try {
-    const response = await fetch("http://localhost:3000/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password, firstName, lastName }),
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, firstName, lastName }),
+        credentials: "include",
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to sign up");
@@ -42,14 +45,17 @@ export async function signInUserWithEmailAndPassword(
   password: string
 ) {
   try {
-    const response = await fetch("http://localhost:3000/auth/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: "include",
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Invalid credentials");
@@ -67,10 +73,13 @@ export async function signInUserWithEmailAndPassword(
 
 export async function signOutUser() {
   try {
-    const response = await fetch("http://localhost:3000/auth/signout", {
-      method: "POST",
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/signout`,
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to sign out");
@@ -84,7 +93,7 @@ export async function signOutUser() {
 
 export async function fetchCurrentUser() {
   try {
-    const response = await fetch("http://localhost:3000/auth/me", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
       method: "GET",
       credentials: "include",
     });
@@ -104,5 +113,5 @@ export async function fetchCurrentUser() {
 }
 
 export const handleOAuthLogin = (provider: "google" | "github") => {
-  window.location.href = `http://localhost:3000/auth/${provider}`;
+  window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/${provider}`;
 };

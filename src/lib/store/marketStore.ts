@@ -68,7 +68,7 @@ class MarketStore {
     makeAutoObservable(this);
   }
 
-  async fetchMarketSummary() {
+  async fetchMarketSummary(dateString?: string) {
     // Skip if already fetching
     if (this.marketSummaryFetchInProgress) {
       return;
@@ -79,10 +79,15 @@ class MarketStore {
       this.isLoading = true;
       this.error = null;
 
+      const dateParam = dateString
+        ? new Date(dateString).toISOString().split("T")[0]
+        : new Date().toISOString().split("T")[0];
+
       const response = await fetch(
-        `http://localhost:3000/stocks/market-summary?date=${
-          new Date().toISOString().split("T")[0]
-        }`
+        `${process.env.NEXT_PUBLIC_API_URL}/stocks/market-summary?date=${dateParam}`,
+        {
+          next: { revalidate: 60 * 60 }, // 1 hour
+        }
       );
 
       if (!response.ok) {
@@ -108,17 +113,22 @@ class MarketStore {
   }
 
   async fetchTopStocks() {
-    // Skip if already fetching
     if (this.topStocksFetchInProgress) {
+      console.log(
+        "Top stocks fetch already in progress, skipping duplicate request"
+      );
       return;
     }
 
+    this.topStocksFetchInProgress = true;
+
     try {
-      this.topStocksFetchInProgress = true;
       this.isTopStocksLoading = true;
       this.error = null;
 
-      const response = await fetch("http://localhost:3000/stocks/top-stocks");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/stocks/top-stocks`
+      );
 
       if (!response.ok) {
         throw new Error(`Failed to fetch top stocks: ${response.status}`);

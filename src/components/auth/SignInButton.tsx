@@ -1,4 +1,4 @@
-import styles from "./AuthButtons.module.css";
+import { Button } from "@mui/material";
 
 interface SignInButtonProps {
   onClick: () => void;
@@ -6,9 +6,9 @@ interface SignInButtonProps {
 
 const SignInButton = ({ onClick }: SignInButtonProps) => {
   return (
-    <button className={styles.signInButton} onClick={onClick}>
+    <Button size="small" variant="outlined" onClick={onClick}>
       Sign In
-    </button>
+    </Button>
   );
 };
 

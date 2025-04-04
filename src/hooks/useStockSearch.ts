@@ -23,9 +23,9 @@ export function useStockSearch(query: string) {
 
       try {
         const response = await fetch(
-          `http://localhost:3000/stocks/search?query=${encodeURIComponent(
-            query
-          )}`
+          `${
+            process.env.NEXT_PUBLIC_API_URL
+          }/stocks/search?query=${encodeURIComponent(query)}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch search results");
