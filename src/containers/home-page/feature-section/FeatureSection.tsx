@@ -1,6 +1,7 @@
-import FeatureCard from "@/containers/home-page/feature-section/FeatureCard";
 import Grid from "@mui/material/Grid2";
 import Typography from "@mui/material/Typography";
+
+import FeatureCard from "@/containers/home-page/feature-section/FeatureCard";
 
 import Styles from "./FeatureSection.module.scss";
 

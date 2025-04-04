@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import Link from "next/link";
+
 import styles from "./HeroSection.module.scss";
 
 export default function HeroSection() {
