@@ -15,38 +15,23 @@
   max-width: var(--max-width);
   padding-left: var(--spacing-lg);
   margin: 0 auto 0 10%;
+
+  @include mobile-sm {
+    margin: initial;
+  }
 }
 
 .title {
-  font-size: var(--font-size-xl);
-  font-weight: bold;
   margin-bottom: var(--margin-md);
   
   span {
     color: var(--color-primary);
   }
-  
-  @include mobile-sm {
-    font-size: var(--font-size-lg);
-  }
-  
-  @include mobile-xs {
-    font-size: var(--font-size-md);
-  }
 }
 
 .subtitle {
-  font-size: var(--font-size-lg);
   color: var(--color-secondary);
   margin-bottom: var(--margin-lg);
-  
-  @include mobile-sm {
-    font-size: var(--font-size-md);
-  }
-  
-  @include mobile-xs {
-    font-size: var(--font-size-sm);
-  }
 }
 
 .ctaButton {

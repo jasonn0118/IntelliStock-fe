@@ -48,7 +48,7 @@ export default function FeatureCard({
       <CardActions sx={{ p: 2, pt: 0 }}>
         <Button
           size="medium"
-          variant="contained"
+          variant="outlined"
           color="primary"
           sx={{
             borderRadius: 2,
