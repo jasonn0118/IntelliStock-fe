@@ -8,7 +8,12 @@ import Styles from "./FeatureSection.module.scss";
 export default function FeatureSection() {
   return (
     <section className={Styles.container}>
-      <Typography variant="h4" className={Styles.title} pb={2}>
+      <Typography
+        variant="h4"
+        fontSize={{ xs: "1rem", sm: "1.5rem", md: "2rem" }}
+        className={Styles.title}
+        pb={2}
+      >
         What features we are proudly provide
       </Typography>
       <Grid container spacing={3}>

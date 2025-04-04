@@ -12,18 +12,11 @@
   justify-items: center;
   min-height: 100svh;
   font-family: var(--font-geist-sans);
-  padding: var(--spacing-lg) 0;
+  padding: 0;
   box-sizing: border-box;
   width: 100%;
   overflow-x: hidden;
   
-  @include mobile-sm {
-    padding: var(--spacing-md) 0;
-  }
-  
-  @include mobile-xs {
-    padding: var(--spacing-sm) 0;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
