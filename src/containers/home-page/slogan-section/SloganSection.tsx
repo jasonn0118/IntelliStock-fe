@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+
 import styles from "./SloganSection.module.scss";
 
 export default function SloganSection() {
