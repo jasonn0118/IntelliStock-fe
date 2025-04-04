@@ -39,7 +39,7 @@ class StockStore {
       // Create promises for both requests
       console.log(`Fetching static data for ${ticker}`);
       const staticPromise = fetch(
-        `http://localhost:3000/stocks/${ticker}/static`,
+        `${process.env.NEXT_PUBLIC_API_URL}/stocks/${ticker}/static`,
         {
           next: { revalidate: 60 * 60 * 24 * 7 }, // 1 week
         }
@@ -47,7 +47,7 @@ class StockStore {
 
       console.log(`Fetching dynamic data for ${ticker}`);
       const dynamicPromise = fetch(
-        `http://localhost:3000/stocks/${ticker}/dynamic`,
+        `${process.env.NEXT_PUBLIC_API_URL}/stocks/${ticker}/dynamic`,
         {
           next: { revalidate: 60 * 60 * 24 }, // 1 day
         }

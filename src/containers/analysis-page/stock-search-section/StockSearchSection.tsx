@@ -44,9 +44,9 @@ const StockSearchSection = () => {
     const searchStocks = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/stocks/search?query=${encodeURIComponent(
-            inputValue
-          )}`
+          `${
+            process.env.NEXT_PUBLIC_API_URL
+          }/stocks/search?query=${encodeURIComponent(inputValue)}`
         );
         const data = await response.json();
         setOptions(data);
