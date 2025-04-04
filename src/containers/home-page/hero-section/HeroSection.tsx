@@ -1,5 +1,5 @@
-import React from "react";
-
+import { Button } from "@mui/material";
+import Link from "next/link";
 import styles from "./HeroSection.module.scss";
 
 export default function HeroSection() {
@@ -12,7 +12,9 @@ export default function HeroSection() {
         <p className={styles.subtitle}>
           Gain deep insights into the stock market with AI-driven analytics.
         </p>
-        <button className={styles.ctaButton}>Get Started</button>
+        <Button variant="contained">
+          <Link href="/analysis">Get Started</Link>
+        </Button>
       </div>
     </section>
   );

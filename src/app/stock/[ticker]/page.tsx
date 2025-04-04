@@ -27,7 +27,6 @@ const StockPage = observer(() => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const dataFetchedRef = useRef(false);
 
-  // Data fetching moved here from layout for consistency
   useEffect(() => {
     if (!dataFetchedRef.current) {
       console.log(`StockPage: Fetching data for ticker ${ticker}`);
